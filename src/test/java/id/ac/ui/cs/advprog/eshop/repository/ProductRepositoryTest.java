@@ -37,6 +37,23 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testEdit() {
+        Product product = new Product();
+        product.setProductName("Sampo Kuda");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product productEdit = new Product();
+        productEdit.setProductName("Sampo Sapi");
+        productEdit.setProductQuantity(69);
+        Product editedProduct = productRepository.edit(productEdit);
+
+        assertNotNull(editedProduct);
+        assertEquals("Sampo Sapi", editedProduct.getProductName());
+        assertEquals(69, editedProduct.getProductQuantity());
+    }
+
+    @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
@@ -64,4 +81,5 @@ public class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+    
 }
