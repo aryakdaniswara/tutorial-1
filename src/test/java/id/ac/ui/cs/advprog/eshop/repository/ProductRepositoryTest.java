@@ -7,8 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.google.common.collect.Iterators;
+
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,11 +43,13 @@ public class ProductRepositoryTest {
     @Test
     void testEdit() {
         Product product = new Product();
+        product.setProductId("0");
         product.setProductName("Sampo Kuda");
         product.setProductQuantity(100);
         productRepository.create(product);
 
         Product productEdit = new Product();
+        productEdit.setProductId("0");
         productEdit.setProductName("Sampo Sapi");
         productEdit.setProductQuantity(69);
         Product editedProduct = productRepository.edit(productEdit);
@@ -55,8 +60,25 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testEditIfEmpty() {
+        Product product = new Product();
+        product.setProductId("0");
+        product.setProductName("Botol");
+        product.setProductQuantity(100);
+        
+        // Expect the edit to fail
+        assertThrows(NoSuchElementException.class, () ->  productRepository.edit(product));
+
+        // Check if product list is empty
+        Iterator<Product> productIterator = productRepository.findAll();
+        int size = Iterators.size(productIterator);
+        assertEquals(0, size);;
+    }
+
+    @Test
     void testDelete() {
         Product product = new Product();
+        product.setProductId("0");
         product.setProductName("Botol");
         product.setProductQuantity(100);
         productRepository.create(product);
@@ -64,7 +86,24 @@ public class ProductRepositoryTest {
 
         // Check if product list is empty
         Iterator<Product> productIterator = productRepository.findAll();
-        assertFalse(productIterator.hasNext());
+        int size = Iterators.size(productIterator);
+        assertEquals(0, size);
+    }
+
+    @Test
+    void testDeleteIfEmpty() {
+        Product product = new Product();
+        product.setProductId("0");
+        product.setProductName("Botol");
+        product.setProductQuantity(100);
+        
+        // Expect the delete to fail
+        assertThrows(NoSuchElementException.class, () -> productRepository.delete(product));
+
+        // Check if product list is empty
+        Iterator<Product> productIterator = productRepository.findAll();
+        int size = Iterators.size(productIterator);
+        assertEquals(0, size);;
     }
 
     @Test
