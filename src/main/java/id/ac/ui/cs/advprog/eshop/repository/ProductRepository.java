@@ -40,4 +40,11 @@ public class ProductRepository {
         product.setProductQuantity(editedProduct.getProductQuantity());
         return  product;
     }
+
+    public Product delete(Product product) {
+        String productId = product.getProductId();
+        Product deleteProduct = findById(productId);
+        productData.remove(deleteProduct);
+        return deleteProduct;
+    }
 }
