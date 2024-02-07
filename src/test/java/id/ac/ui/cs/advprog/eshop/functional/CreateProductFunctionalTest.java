@@ -45,7 +45,7 @@ class CreateProductFunctionalTest {
     @Test
     public void testCreateProduct(ChromeDriver driver) {
         // Navigate to the page
-        driver.get("http://localhost:8080/product/create");
+        driver.get(baseUrl + "/product/create");
 
         // Find the input field and submit button
         WebElement productNameInput = driver.findElement(By.id("nameInput"));
