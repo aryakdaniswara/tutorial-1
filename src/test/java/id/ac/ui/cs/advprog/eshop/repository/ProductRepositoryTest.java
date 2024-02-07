@@ -54,6 +54,18 @@ public class ProductRepositoryTest {
         assertEquals(69, editedProduct.getProductQuantity());
     }
 
+    @Test
+    void testDelete() {
+        Product product = new Product();
+        product.setProductName("Botol");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+        productRepository.delete(product);
+
+        // Check if product list is empty
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
 
     @Test
     void testFindAllIfEmpty() {
