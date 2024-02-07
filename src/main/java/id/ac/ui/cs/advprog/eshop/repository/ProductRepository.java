@@ -23,15 +23,21 @@ public class ProductRepository {
     public  Iterator<Product> findAll() {
         return  productData.iterator();
     }
-
-    public Product edit(Product product) {
-        String productId = product.getProductId();
-        for (int i = 0; i < productData.size(); i++) {
-            if (productData.get(i).getProductId().equals(product.getProductId())) {
-                productData.set(i, product);
+    
+    public Product findById(String productId) {
+        for (Product product : productData) {
+            if (productId.equals(product.getProductId())) {
                 return product;
             }
         }
         throw new NoSuchElementException("Product not found with ID: " + productId);
+    }
+
+    public Product edit(Product editedProduct) {
+        String productId = editedProduct.getProductId();
+        Product product = findById(productId);
+        product.setProductName(editedProduct.getProductName());
+        product.setProductQuantity(editedProduct.getProductQuantity());
+        return  product;
     }
 }
