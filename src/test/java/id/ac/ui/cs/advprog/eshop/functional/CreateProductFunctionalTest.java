@@ -43,7 +43,7 @@ class CreateProductFunctionalTest {
 
     
     @Test
-    public void testCreateProduct(ChromeDriver driver) {
+    void testCreateProduct(ChromeDriver driver) {
         // Navigate to the page
         driver.get(baseUrl + "/product/create");
 
