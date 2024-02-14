@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductRepositoryTest {
@@ -104,6 +105,18 @@ public class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         int size = Iterators.size(productIterator);
         assertEquals(0, size);;
+    }
+
+    @Test
+    void testFindByIdIfEmpty() {
+        Product product = new Product();
+        product.setProductId("0");
+        product.setProductName("Sampo Babi");
+        product.setProductQuantity(96);
+        productRepository.create(product);
+
+        // expect search to fail
+        assertThrows(NoSuchElementException.class, () -> productRepository.findById("1"));
     }
 
     @Test
