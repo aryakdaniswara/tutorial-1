@@ -25,14 +25,14 @@
         </thead>
         <tbody>
         <tr th:each="car: ${cars}">
-            <td th:text="${car.carName}"></td>
-            <td th:text="${car.carColor}"></td>
-            <td th:text="${car.carQuantity}"></td>
+            <td th:text="${car.name}"></td>
+            <td th:text="${car.color}"></td>
+            <td th:text="${car.quantity}"></td>
             <td>
                 <div class="btn-group" role="group" aria-label="Car Actions">
-                    <a th:href="@{/car/editCar/{id}(id=${car.carId})}" class="btn btn-info btn-sm">Edit</a>
+                    <a th:href="@{/car/editCar/{id}(id=${car.id})}" class="btn btn-info btn-sm">Edit</a>
                     <form th:action="@{/car/deleteCar}" method="post">
-                        <input type="hidden" th:name="carId" th:value="${car.carId}" />
+                        <input type="hidden" th:name="id" th:value="${car.id}" />
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </div>
