@@ -33,46 +33,46 @@ public class productServiceImplTest {
     @Test
     void testCreateAndFind() {
         Product product = new Product();
-        product.setProductId("123");
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setId("123");
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
         productService.create(product);
 
         when(productRepository.create(product)).thenReturn(product);
 
         Product savedProduct = productService.create(product);
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertEquals(product.getId(), savedProduct.getId());
+        assertEquals(product.getName(), savedProduct.getName());
+        assertEquals(product.getQuantity(), savedProduct.getQuantity());
     }
 
     @Test
     void testEdit() {
         Product product = new Product();
-        product.setProductId("0");
-        product.setProductName("Sampo Kuda");
-        product.setProductQuantity(100);
+        product.setId("0");
+        product.setName("Sampo Kuda");
+        product.setQuantity(100);
         productService.create(product);
 
         Product productEdit = new Product();
-        productEdit.setProductId("0");
-        productEdit.setProductName("Sampo Sapi");
-        productEdit.setProductQuantity(69);
+        productEdit.setId("0");
+        productEdit.setName("Sampo Sapi");
+        productEdit.setQuantity(69);
 
         when(productRepository.edit(productEdit)).thenReturn(productEdit);
         Product editedProduct = productService.edit(productEdit);
 
         assertNotNull(editedProduct);
-        assertEquals("Sampo Sapi", editedProduct.getProductName());
-        assertEquals(69, editedProduct.getProductQuantity());
+        assertEquals("Sampo Sapi", editedProduct.getName());
+        assertEquals(69, editedProduct.getQuantity());
     }
 
     @Test
     void testDelete() {
         Product product = new Product();
-        product.setProductId("0");
-        product.setProductName("Botol");
-        product.setProductQuantity(100);
+        product.setId("0");
+        product.setName("Botol");
+        product.setQuantity(100);
         productService.create(product);
         productService.delete(product);
 
@@ -88,9 +88,9 @@ public class productServiceImplTest {
     @Test
     void testFindAll() {
         Product product = new Product();
-        product.setProductId("0");
-        product.setProductName("Sampo Babi");
-        product.setProductQuantity(96);
+        product.setId("0");
+        product.setName("Sampo Babi");
+        product.setQuantity(96);
         productService.create(product);
 
         when(productRepository.findAll()).thenReturn(List.of(product).iterator());
@@ -98,35 +98,35 @@ public class productServiceImplTest {
 
         assertTrue(iterator.hasNext());
         Product savedProduct = iterator.next();
-        assertEquals(product.getProductId(), savedProduct.getProductId());
-        assertEquals(product.getProductName(), savedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        assertEquals(product.getId(), savedProduct.getId());
+        assertEquals(product.getName(), savedProduct.getName());
+        assertEquals(product.getQuantity(), savedProduct.getQuantity());
     }
 
     @Test
     void testFindById() {
         Product product = new Product();
-        product.setProductId("0");
-        product.setProductName("Sampo Babi");
-        product.setProductQuantity(96);
+        product.setId("0");
+        product.setName("Sampo Babi");
+        product.setQuantity(96);
         productService.create(product);
 
         when(productRepository.findAll()).thenReturn(List.of(product).iterator());
         Product searchedProduct = productService.findById("0");
 
         assertNotNull(searchedProduct);
-        assertEquals(product.getProductId(), searchedProduct.getProductId());
-        assertEquals(product.getProductName(), searchedProduct.getProductName());
-        assertEquals(product.getProductQuantity(), searchedProduct.getProductQuantity());
+        assertEquals(product.getId(), searchedProduct.getId());
+        assertEquals(product.getName(), searchedProduct.getName());
+        assertEquals(product.getQuantity(), searchedProduct.getQuantity());
         assertEquals(product, searchedProduct);
     }
 
     @Test
     void testFindByIdIfEmpty() {
         Product product = new Product();
-        product.setProductId("0");
-        product.setProductName("Sampo Babi");
-        product.setProductQuantity(96);
+        product.setId("0");
+        product.setName("Sampo Babi");
+        product.setQuantity(96);
         productService.create(product);
 
         when(productRepository.findAll()).thenReturn(List.of(product).iterator());

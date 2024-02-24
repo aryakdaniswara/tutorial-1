@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
-import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/car")
 class CarController {
     @Autowired
-    private CarServiceImpl carService;
+    private CarService carService;
 
     @GetMapping("/createCar")
     public String createCarPage(Model model){
@@ -44,15 +44,15 @@ class CarController {
 
     @PostMapping("/editCar")
     public String editCarPost(@ModelAttribute Car car, Model model){
-        System.out.println(car.getCarId());
-        carService.update(car.getCarId(), car);
+        System.out.println(car.getId());
+        carService.update(car.getId(), car);
 
         return "redirect:listCar";
     }
 
     @PostMapping("/deleteCar")
-    public String deleteCar(@RequestParam("carId") String carId){
-        carService.deleteCarById(carId);
+    public String deleteCar(@RequestParam("id") String id){
+        carService.deleteById(id);
         return "redirect:listCar";
     }
 }
