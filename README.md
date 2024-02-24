@@ -19,3 +19,47 @@ link: https://aryakdaniswara-e-shop123.koyeb.app/
 ## Refleksi
 - Setelah saya melakukan exercise ini, saya menemukan beberapa masalah pada kode saya. Saya menemukan bahwa kode yang saya buat memiliki access modifier yang kurang tepat. Saya memperbaikinya dengan mengubahnya ke acces modifier yang benar, seperti paa public yang seharusnya default dan lain-lain. Beberapa import yang saya gunakan juga tidak terpakai sehingga saya remove. Saya juga menemukan kekurangan pada tes yang buat karena belum menguji 100%. Saya memperbaiki nya dengan melihat bagian mana yang belum kena coverage dan melengkapinya hingga coverage bisa 100%. Hal ini membuat saya lebih aware tentang test yang saya buat karena bisa jadi hanya menguji "benarnya saja" tapi tidak menguji kasus di mana kode saya seharusnya gagal dan menghandle gagal tersebut.
 - Menurut saya penerapan CI/CD workflow yang saya gunakan sudah sesuai dengan prinsip Continuous Deployment. Salah satunya adalah karena Github sudah akan otomatis menjalankan pengecekan melalui workflow yang sudah saya buat di ci.yml. Selanjutnya, pengecekan kebersihan juka dilakukan secara otomatis melalui scorecard dan sonarcloud. Prinsip ini juga sudah dijalankan ketika saya menggunakan Paas yang dapat memperbarui perubahan yang saya buat, sehingga sudah sesuai dengan prinsip CI/CD. Oleh karena itu, saya merasa prinsip CI/CD sudah diterapkan sehingga semua proses dapat berlangsung secara otomatis ketika ada push atau pull.
+
+# Modul 3
+## Refleksi
+Saya merasa sudah menerapkan semua prinsip SOLID pada kode yang telah dibuat, baik dengan memperbaiki, atau dari penulisannya yang sudah sesuai dengan prinsip tersebut.
+- Single Responsibility Principle (SRP): Prinsip ini diterapkan dengan adanya pemisahan pada class existing Product dengan class baru Car. Prinsip ini dibuat sehingga suatu class hanya akan mempunya 1 responsibility saja pada fungsionalitas.
+- Open/Closed Principle (OCP): Saya merasa prinsip ini sudah dijalankan dnegan penerapan interface pada service dan pada inherintance Car pada Product. Hal ini memungkinan untuk pengembangan yang dapat menambah fungsionalitas baru tanpa merubah source code awalnya.
+- Liskov Substitution Principle (LSP): Saya merasa prinsip ini sudah saya terapkan dengan adanya inheritance dari Car pada Product, yang sesuai juga dengan kontraknya sehingga Car tidak perlu menambahkan lagi attributes yang sudah ada pada Products.
+- Interface Segregation Principle (ISP): Saya merasa prinsip ini sudah dijalankan dengan melihat bagian Service saya yang memiliki 2 bagian interface pada Car dan Products. Hal ini membagi interface menjadi konsep yang lebih kecil dan tidak langsung besar begitu saja.
+- Dependency Inversion Principle (DIP):  Prinsip ini sudah saya jalankan dengan mengubah dependency dari CarRepository yang awalnya bergantung pada CarServiceImpl yang merupakan detail implmentasinya menjadi bergantung pada CarService yang merupakan interface nya
+
+Keuntungan Menerapkan Prinsip-prinsip SOLID:
+- Kode Lebih Mudah Dimengerti:
+Dengan menerapkan prinsip-prinsip SOLID, struktur kode akan lebih terorganisir dan terstruktur. Ini membuatnya lebih mudah dipahami oleh pengembang baru dan anggota tim lainnya.
+Contoh: Memisahkan kelas-kelas menjadi unit-unit yang terisolasi sesuai dengan fungsinya masing-masing, membuat alur logika program lebih jelas dan mudah dipahami.
+
+- Kode Lebih Mudah Diperbaiki dan Dimodifikasi:
+Kode yang dibuat dengan memperhatikan prinsip-prinsip SOLID memiliki tingkat kohesi yang tinggi, sehingga perubahan atau perbaikan dapat dilakukan dengan lebih mudah tanpa menyebabkan efek samping pada bagian-bagian lain dari sistem.
+Contoh: Jika terdapat kesalahan pada fitur tertentu, perubahan dapat dilakukan pada kelas yang bertanggung jawab terhadap fitur tersebut tanpa harus memodifikasi kelas-kelas lain yang tidak terkait.
+
+- Fleksibilitas dan Skalabilitas yang Lebih Baik:
+Prinsip-prinsip SOLID mempromosikan desain yang lebih fleksibel dan dapat diubah. Ini memungkinkan pengembang untuk menyesuaikan aplikasi dengan lebih baik terhadap perubahan kebutuhan bisnis atau teknologi.
+Contoh: Dengan menggunakan pola desain seperti Dependency Injection, aplikasi menjadi lebih mudah untuk disesuaikan dengan integrasi komponen baru atau penggantian komponen yang ada.
+
+- Memfasilitasi Pengujian (Testing) yang Lebih Mudah:
+Desain yang baik sesuai dengan prinsip-prinsip SOLID memungkinkan untuk pengujian yang lebih efektif. Kode yang terpisah dan terisolasi dengan baik lebih mudah untuk diuji secara unit dan diuji otomatis.
+Contoh: Pengujian unit dapat dilakukan dengan lebih mudah karena kelas-kelas memiliki tanggung jawab yang terdefinisi dengan jelas dan dependensi yang terisolasi.
+
+Kerugian Tidak Menerapkan Prinsip-prinsip SOLID:
+
+- Kode Sulit Dimengerti dan Dipelihara:
+Tanpa prinsip-prinsip SOLID, kode cenderung menjadi sulit dimengerti karena struktur dan tanggung jawabnya tidak terorganisir dengan baik. Ini menyebabkan kesulitan dalam pemeliharaan dan pembaruan kode.
+Contoh: Jika logika bisnis tersebar di berbagai bagian aplikasi tanpa struktur yang jelas, mengidentifikasi dan memperbaiki bug akan menjadi tantangan.
+
+- Keharusan Perubahan Berantai (Ripple Effect):
+Ketika perubahan dilakukan pada satu bagian kode, hal ini seringkali memengaruhi bagian-bagian lainnya yang saling tergantung. Tanpa SOLID, perubahan kecil pun sering kali memerlukan perubahan yang lebih besar.
+Contoh: Ketika mengubah struktur database, tanpa SOLID, hal ini mungkin memerlukan perubahan besar-besaran pada kode aplikasi yang bergantung pada struktur database tersebut.
+
+- Kerusakan Keamanan dan Stabilitas:
+Kode yang tidak sesuai dengan prinsip-prinsip SOLID cenderung memiliki kelemahan keamanan yang lebih tinggi. Desain yang buruk bisa memunculkan kerentanan keamanan dan bug yang menyebabkan aplikasi tidak stabil.
+Contoh: Kegagalan untuk memisahkan tanggung jawab secara jelas dapat menyebabkan masalah keamanan seperti kebocoran data atau serangan injeksi.
+
+- Kode Sulit Diuji (Testing):
+Ketika kode tidak dipisahkan dengan baik dan memiliki dependensi yang kuat antara satu sama lain, pengujian unit dan integrasi menjadi sulit dilakukan. Hal ini menyebabkan kesulitan dalam menemukan dan memperbaiki bug.
+Contoh: Jika kelas-kelas memiliki ketergantungan langsung satu sama lain tanpa menggunakan konsep dependensi terbalik, maka pengujian unit menjadi tidak mungkin dilakukan dengan baik.
