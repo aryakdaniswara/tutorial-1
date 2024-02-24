@@ -14,7 +14,7 @@ public class ProductRepository {
     private static int productCount = 0;
 
     public Product create(Product product) {
-        product.setProductId(Integer.toString(productCount)); // make product id
+        product.setId(Integer.toString(productCount)); // make product id
         productCount++;
         productData.add(product);
         return product;
@@ -26,7 +26,7 @@ public class ProductRepository {
     
     public Product findById(String productId) {
         for (Product product : productData) {
-            if (productId.equals(product.getProductId())) {
+            if (productId.equals(product.getId())) {
                 return product;
             }
         }
@@ -34,15 +34,15 @@ public class ProductRepository {
     }
 
     public Product edit(Product editedProduct) {
-        String productId = editedProduct.getProductId();
+        String productId = editedProduct.getId();
         Product product = findById(productId);
-        product.setProductName(editedProduct.getProductName());
-        product.setProductQuantity(editedProduct.getProductQuantity());
+        product.setName(editedProduct.getName());
+        product.setQuantity(editedProduct.getQuantity());
         return  product;
     }
 
     public Product delete(Product product) {
-        String productId = product.getProductId();
+        String productId = product.getId();
         Product deleteProduct = findById(productId);
         productData.remove(deleteProduct);
         return deleteProduct;

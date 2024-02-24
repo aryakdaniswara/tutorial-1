@@ -80,8 +80,11 @@ public class CarControllerTest {
 
     @Test
     public void testDeleteCar() throws Exception {
+        String carId = "1";
+        when(carService.findById(carId)).thenReturn(new Car());
+
         mockMvc.perform(post("/car/deleteCar")
-                        .param("carId", "1"))
+                        .param("id", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("listCar"));
     }

@@ -34,54 +34,54 @@ public class carServiceImplTest {
     @Test
     void testCreateAndFind() {
         Car car = new Car();
-        car.setCarId("123");
-        car.setCarName("Honda");
-        car.setCarColor("Hijau");
-        car.setCarQuantity(100);
+        car.setId("123");
+        car.setName("Honda");
+        car.setColor("Hijau");
+        car.setQuantity(100);
         carService.create(car);
 
         when(carRepository.create(car)).thenReturn(car);
 
         Car savedCar = carService.create(car);
-        assertEquals(car.getCarId(), savedCar.getCarId());
-        assertEquals(car.getCarName(), savedCar.getCarName());
-        assertEquals(car.getCarColor(), savedCar.getCarColor());
-        assertEquals(car.getCarQuantity(), savedCar.getCarQuantity());
+        assertEquals(car.getId(), savedCar.getId());
+        assertEquals(car.getName(), savedCar.getName());
+        assertEquals(car.getColor(), savedCar.getColor());
+        assertEquals(car.getQuantity(), savedCar.getQuantity());
     }
 
     @Test
     void testEdit() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Suzuki");
-        car.setCarColor("Biru");
-        car.setCarQuantity(100);
+        car.setId("0");
+        car.setName("Suzuki");
+        car.setColor("Biru");
+        car.setQuantity(100);
         carService.create(car);
 
         Car carEdit = new Car();
-        carEdit.setCarId("0");
-        carEdit.setCarName("Honda");
-        car.setCarColor("Hijau");
-        carEdit.setCarQuantity(69);
+        carEdit.setId("0");
+        carEdit.setName("Honda");
+        car.setColor("Hijau");
+        carEdit.setQuantity(69);
 
         when(carRepository.update("0", carEdit)).thenReturn(carEdit);
         carService.update("0", carEdit);
         Car editedCar = carRepository.update("0", carEdit);
 
         assertNotNull(editedCar);
-        assertEquals("Honda", editedCar.getCarName());
-        assertEquals(69, editedCar.getCarQuantity());
+        assertEquals("Honda", editedCar.getName());
+        assertEquals(69, editedCar.getQuantity());
     }
 
     @Test
     void testDelete() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Honda");
-        car.setCarColor("Hijau");
-        car.setCarQuantity(100);
+        car.setId("0");
+        car.setName("Honda");
+        car.setColor("Hijau");
+        car.setQuantity(100);
         carService.create(car);
-        carService.deleteCarById("0");
+        carService.deleteById("0");
 
         when(carRepository.findAll()).thenReturn(List.of(car).iterator());
         Iterator <Car> iterator = carService.findAll().iterator();
@@ -95,9 +95,9 @@ public class carServiceImplTest {
     @Test
     void testFindAll() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Suzuki");
-        car.setCarQuantity(96);
+        car.setId("0");
+        car.setName("Suzuki");
+        car.setQuantity(96);
         carService.create(car);
 
         when(carRepository.findAll()).thenReturn(List.of(car).iterator());
@@ -105,18 +105,18 @@ public class carServiceImplTest {
 
         assertTrue(iterator.hasNext());
         Car savedCar = iterator.next();
-        assertEquals(car.getCarId(), savedCar.getCarId());
-        assertEquals(car.getCarName(), savedCar.getCarName());
-        assertEquals(car.getCarQuantity(), savedCar.getCarQuantity());
+        assertEquals(car.getId(), savedCar.getId());
+        assertEquals(car.getName(), savedCar.getName());
+        assertEquals(car.getQuantity(), savedCar.getQuantity());
     }
 
     @Test
     void testFindById() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Kijang");
-        car.setCarColor("Biru");
-        car.setCarQuantity(96);
+        car.setId("0");
+        car.setName("Kijang");
+        car.setColor("Biru");
+        car.setQuantity(96);
         carService.create(car);
 
         when(carRepository.findById("0")).thenReturn(car);

@@ -11,29 +11,29 @@ class CarTest {
     @BeforeEach
     void setUp() {
         this.car = new Car();
-        this.car.setCarId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        this.car.setCarName("Avanza");
-        this.car.setCarColor("Biru");
-        this.car.setCarQuantity(100);
+        this.car.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        this.car.setName("Avanza");
+        this.car.setColor("Biru");
+        this.car.setQuantity(100);
     }
 
     @Test
     void testGetCarId() {
-        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.car.getCarId());
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.car.getId());
     }
 
     @Test
     void testGetCarName() {
-        assertEquals("Avanza", this.car.getCarName());
+        assertEquals("Avanza", this.car.getName());
     }
 
     @Test
     void testGetCarColor() {
-        assertEquals("Biru", this.car.getCarColor());
+        assertEquals("Biru", this.car.getColor());
     }
 
     @Test
     void testGetCarQuantity() {
-        assertEquals(100, this.car.getCarQuantity());
+        assertEquals(100, this.car.getQuantity());
     }
 }

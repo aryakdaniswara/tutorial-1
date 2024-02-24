@@ -35,7 +35,7 @@ public class ProductServiceImpl implements  ProductService {
         Iterator<Product> iterator = productRepository.findAll();
         while (iterator.hasNext()) {
             Product product = iterator.next();
-            if (product.getProductId().equals(productId)) {
+            if (product.getId().equals(productId)) {
                 return product;
             }
         }

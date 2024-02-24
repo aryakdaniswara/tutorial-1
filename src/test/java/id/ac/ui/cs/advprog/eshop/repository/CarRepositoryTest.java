@@ -29,47 +29,47 @@ public class CarRepositoryTest {
     @Test
     void testCreateAndFind() {
         Car car = new Car();
-        car.setCarName("Innova");
-        car.setCarColor("Biru");
-        car.setCarQuantity(100);
+        car.setName("Innova");
+        car.setColor("Biru");
+        car.setQuantity(100);
         carRepository.create(car);
 
         Iterator<Car> carIterator = carRepository.findAll();
         assertTrue(carIterator.hasNext());
         Car savedCar = carIterator.next();
-        assertEquals(car.getCarName(), savedCar.getCarName());
-        assertEquals(car.getCarQuantity(), savedCar.getCarQuantity());
+        assertEquals(car.getName(), savedCar.getName());
+        assertEquals(car.getQuantity(), savedCar.getQuantity());
     }
 
     @Test
     void testEdit() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Avanza");
-        car.setCarColor("Biru");
-        car.setCarQuantity(100);
+        car.setId("0");
+        car.setName("Avanza");
+        car.setColor("Biru");
+        car.setQuantity(100);
         carRepository.create(car);
 
         Car carEdit = new Car();
-        carEdit.setCarId("0");
-        carEdit.setCarName("Ferrari");
-        carEdit.setCarColor("Merah");
-        carEdit.setCarQuantity(69);
+        carEdit.setId("0");
+        carEdit.setName("Ferrari");
+        carEdit.setColor("Merah");
+        carEdit.setQuantity(69);
         Car editedCar = carRepository.update("0", carEdit);
 
         assertNotNull(editedCar);
-        assertEquals("Ferrari", editedCar.getCarName());
-        assertEquals("Merah", editedCar.getCarColor());
-        assertEquals(69, editedCar.getCarQuantity());
+        assertEquals("Ferrari", editedCar.getName());
+        assertEquals("Merah", editedCar.getColor());
+        assertEquals(69, editedCar.getQuantity());
     }
 
     @Test
     void testEditIfEmpty() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Ferrari");
-        car.setCarColor("Merah");
-        car.setCarQuantity(100);
+        car.setId("0");
+        car.setName("Ferrari");
+        car.setColor("Merah");
+        car.setQuantity(100);
         carRepository.create(car);
 
 
@@ -83,9 +83,9 @@ public class CarRepositoryTest {
     @Test
     void testDelete() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Botol");
-        car.setCarQuantity(100);
+        car.setId("0");
+        car.setName("Botol");
+        car.setQuantity(100);
         carRepository.create(car);
         carRepository.delete("0");
 
@@ -104,33 +104,33 @@ public class CarRepositoryTest {
     @Test
     void testFindAllIfMoreThanOneCar() {
         Car car1 = new Car();
-        car1.setCarId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        car1.setCarName("Innova");
-        car1.setCarQuantity(100);
+        car1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        car1.setName("Innova");
+        car1.setQuantity(100);
         carRepository.create(car1);
 
         Car car2 = new Car();
-        car2.setCarId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
-        car2.setCarName("Sampo Cap Usep");
-        car2.setCarQuantity(50);
+        car2.setId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        car2.setName("Sampo Cap Usep");
+        car2.setQuantity(50);
         carRepository.create(car2);
 
         Iterator <Car> carIterator = carRepository.findAll();
         assertTrue(carIterator.hasNext());
         Car savedCar = carIterator.next();
-        assertEquals(car1.getCarId(), savedCar.getCarId());
+        assertEquals(car1.getId(), savedCar.getId());
         savedCar = carIterator.next();
-        assertEquals(car2.getCarId(), savedCar.getCarId());
+        assertEquals(car2.getId(), savedCar.getId());
         assertFalse(carIterator.hasNext());
     }
 
     @Test
     void testFindById() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Honda");
-        car.setCarColor("Hijau");
-        car.setCarQuantity(96);
+        car.setId("0");
+        car.setName("Honda");
+        car.setColor("Hijau");
+        car.setQuantity(96);
         carRepository.create(car);
 
 
@@ -143,10 +143,10 @@ public class CarRepositoryTest {
     @Test
     void testFindByIdIfEmpty() {
         Car car = new Car();
-        car.setCarId("0");
-        car.setCarName("Honda");
-        car.setCarColor("Hijau");
-        car.setCarQuantity(96);
+        car.setId("0");
+        car.setName("Honda");
+        car.setColor("Hijau");
+        car.setQuantity(96);
         carRepository.create(car);
 
         // expect search to fail
