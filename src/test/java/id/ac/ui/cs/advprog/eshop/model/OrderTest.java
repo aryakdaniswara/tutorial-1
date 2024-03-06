@@ -41,22 +41,22 @@ class OrderTest {
 
         Product product1 = new Product();
 
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
 
-        product1.setProductName("Sampo Cap Bambang");
+        product1.setName("Sampo Cap Bambang");
 
-        product1.setProductQuantity(2);
+        product1.setQuantity(2);
 
 
 
 
         Product product2 = new Product();
 
-        product2.setProductId("a2c62328-4a37-4664-83c7-f32db8620155");
+        product2.setId("a2c62328-4a37-4664-83c7-f32db8620155");
 
-        product2.setProductName("Sabun Cap Usep");
+        product2.setName("Sabun Cap Usep");
 
-        product2.setProductQuantity(1);
+        product2.setQuantity(1);
 
 
 
@@ -103,9 +103,9 @@ class OrderTest {
 
         assertEquals(2, order.getProducts().size());
 
-        assertEquals("Sampo Cap Bambang", order.getProducts().get(0).getProductName());
+        assertEquals("Sampo Cap Bambang", order.getProducts().get(0).getName());
 
-        assertEquals("Sabun Cap Usep", order.getProducts().get(1).getProductName());
+        assertEquals("Sabun Cap Usep", order.getProducts().get(1).getName());
 
 
 
