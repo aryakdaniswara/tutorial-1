@@ -63,3 +63,23 @@ Contoh: Kegagalan untuk memisahkan tanggung jawab secara jelas dapat menyebabkan
 - Kode Sulit Diuji (Testing):
 Ketika kode tidak dipisahkan dengan baik dan memiliki dependensi yang kuat antara satu sama lain, pengujian unit dan integrasi menjadi sulit dilakukan. Hal ini menyebabkan kesulitan dalam menemukan dan memperbaiki bug.
 Contoh: Jika kelas-kelas memiliki ketergantungan langsung satu sama lain tanpa menggunakan konsep dependensi terbalik, maka pengujian unit menjadi tidak mungkin dilakukan dengan baik.
+
+# Modul 4
+## Refleksi
+Dalam melakukan modul ini, saya merasa proses TDD cukup membantu saya. TDD mendorong fokus pada langkah-langkah kecil yang bertahap, yang dapat meningkatkan pemahaman dan pembelajaran selama proses pengembangan. Dengan menulis pengujian sebelum mengimplementasikan kode, pengembang mendapatkan pemahaman yang lebih jelas tentang persyaratan dan perilaku yang diinginkan.
+
+TDD memang dapat meningkatkan kepercayaan diri pada basis kode. Karena pengujian ditulis sebelum kode, pengembang dapat memastikan bahwa perubahan yang mereka lakukan tidak menyebabkan kemunduran. Menjalankan pengujian secara rutin akan memberikan umpan balik secara instan, sehingga meningkatkan kepercayaan diri akan kebenaran kode.
+
+TDD mendorong kode yang lebih mudah untuk di-refactor dan dipelihara. Karena pengujian bertindak sebagai jaring pengaman, pengembang dapat melakukan refactor dengan percaya diri, karena mengetahui bahwa jika mereka secara tidak sengaja merusak sesuatu, pengujian akan menangkapnya. Hal ini memfasilitasi kelincahan dalam menanggapi perubahan kebutuhan.
+
+TDD dapat membantu meminimalkan cacat dengan menangkap masalah di awal proses pengembangan. Karena pengujian ditulis sebelum kode, pengembang lebih mungkin untuk mempertimbangkan kasus-kasus yang tidak terduga dan potensi jebakan, sehingga mengurangi kemungkinan cacat yang lolos.
+Berdasarkan evaluasi ini, tampaknya alur kerja TDD yang digunakan dalam latihan ini memang berguna. Ini mendukung pembelajaran, meningkatkan kepercayaan diri, memfasilitasi perubahan, dan meminimalkan cacat. Namun, selalu ada ruang untuk perbaikan.
+
+Akan tetapi, saya juga merasakan kesulitan ketika melakukan penerapan dari proses TDD. Saya khawatir tes awal yang saya buat kurang meneliti keseluruhan fitur, kurang merepresentasikan kondisi yang ingin diuji, atau membuat tes yang salah atau tidak tepat dari fitur yang saya inginkan. Hal ini menyebabkan saya harus mengoreksi kembali, tes yang saya buat dan memastikan ulang.
+
+Dalam penulisan test yang sesuai dengan prinsip FIRST:
+- Fast: Saya merasa prinsip ini sudah dijalankan dengan menerapkan test yang bisa langsung diujicobakan. Pengujian harus berjalan dengan cepat untuk memberikan umpan balik langsung kepada pengembang. Jika pengujian berjalan lambat, pengembang mungkin cenderung tidak akan sering menjalankannya.
+- Independen: Saya telah memisahkan unit test dan functional test. Tes yang saya buat juga menguji suatu fungsi tertentu. Pengujian tidak boleh bergantung satu sama lain atau pada faktor eksternal. Hal ini memastikan bahwa kegagalan dalam satu pengujian tidak akan berantai dan pengujian dapat dijalankan dalam urutan apa pun.
+- Repeatable: Test yang saya buat tentunya akan menghasilkan hasil yang sesuai dengan kode yang ada. Pengujian harus memberikan hasil yang sama secara konsisten, terlepas dari kapan dan di mana pengujian tersebut dijalankan. Hal ini memastikan keandalan dan membantu dalam melakukan debugging.
+- Self Validate: Test yang telah saya buat langsung memverifikasi sesuai dengan kondisi yang ada sehingga prinsip ini terpenuhi. Pengujian harus menyatakan hasil lulus atau gagal yang jelas tanpa perlu interpretasi manual. Hal ini memungkinkan otomatisasi proses pengujian.
+- Timely: Pada prinsip ini, awalnya saya membuat tes di akhir atau di tengah pembuatan fitur. Namun, setelah mengetahui TDD, saya mulai menerapkan untuk membuat tes di awal. Tes harus ditulis tepat waktu, idealnya sebelum kode implementasi. Hal ini memastikan bahwa proses pengembangan tetap fokus pada persyaratan dan perilaku yang diinginkan.
