@@ -5,10 +5,9 @@ package id.ac.ui.cs.advprog.eshop.model;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import org.junit.jupiter.api.Order;
-
 import org.junit.jupiter.api.Test;
 
+import id.ac.ui.cs.advprog.eshop.model.Order;
 
 
 
@@ -111,7 +110,7 @@ class OrderTest {
 
 
 
-        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", order.getOrderId());
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", order.getId());
 
         assertEquals(1708560000L, order.getOrderTime());
 
