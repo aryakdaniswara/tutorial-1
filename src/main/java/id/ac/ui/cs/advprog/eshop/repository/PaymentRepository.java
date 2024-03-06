@@ -33,4 +33,12 @@ public class PaymentRepository {
     public List<Payment> getAllPayments(){
         return paymentData;
     }
+
+    public List<Payment> findAll() {
+        List<Payment> result = new ArrayList<>();
+        for (Payment savedPayment : paymentData) {
+            result.add(savedPayment);
+        }
+        return result;
+    }
 }
