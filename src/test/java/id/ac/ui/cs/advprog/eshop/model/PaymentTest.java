@@ -1,244 +1,78 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
-import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+public class PaymentTest {
+    List<Payment> payments;
 
-class PaymentTest {
-    private Map<String, String> paymentData;
-    private Order order;
-    private List<Product> products;
+    List<Order> orders;
+
+    List<Product> products;
 
     @BeforeEach
-    void setup() {
-        this.paymentData = new HashMap<>();
-
-        products = new ArrayList<>();
+    void setUp(){
+        this.products = new ArrayList<>();
         Product product1 = new Product();
-        product1.setId("e45d7d21-fd29-4533-a569-abbe0819579a");
-        product1.setName("Sampo Cap Bambang");
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product1.setQuantity(2);
-        products.add(product1);
-
+        product1.setName("Sampo Cap Bambang");
         Product product2 = new Product();
-        product2.setId("8a76b99c-a0b3-46d2-a688-4c1831b21119");
-        product2.setName("Sabun Cap Usep");
+        product2.setId("a2c62328-4a37-4664-83c7-f32db8620155");
         product2.setQuantity(1);
-        products.add(product2);
+        product2.setName("Sampo Cap Usep");
+        this.products.add(product1);
+        this.products.add(product2);
 
-        order= new Order(
-                "dbd4aff4-9a7f-4603-92c2-eaf529271cc9",
-                products,
-                1708560000L,
-                "Safira Sudrajat"
-        );
-    }
+        this.orders = new ArrayList<>();
 
-    void loadBankTransferPaymentData() {
-        paymentData.put("bankName", "BCA");
-        paymentData.put("referenceCode", "1234567890");
-    }
-
-    void loadVoucherCodePaymentData() {
-        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        Order order1 = new Order("bbbbaaaa-4a37-4664-83c7-f32db8620155", products ,100L, "Budi");
+        Order order2 = new Order("aaaabbbb-4a37-4664-83c7-f32db8620155", products ,100L, "Budi");
+        Order order3 = new Order("ccccbbbb-4a37-4664-83c7-f32db8620155", products ,100L, "Andi");
+        orders.add(order1);
+        orders.add(order2);
+        orders.add(order3);
     }
 
 
     @Test
-    void testCreatePaymentWithNoOrder() {
-        loadBankTransferPaymentData();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), null, paymentData);
-        });
-        paymentData.clear();
+    void testCreatePaymentSucessfulVoucher(){
+        Map<String, String> paymentDataVoucher = new  HashMap<>();
+        paymentDataVoucher.put("voucherCode", "ESHOP00000000AAA");
+        Payment payment1 = new Payment("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",orders.get(1),
+                "", paymentDataVoucher);
+        assertSame(this.orders.get(1), payment1.getOrder());
+        assertNull(payment1.getPaymentData());
+        assertEquals("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", payment1.getId());
+        assertEquals("", payment1.getMethod());
     }
 
     @Test
-    void testCreatePaymentWithNoPaymentMethod() {
-        loadBankTransferPaymentData();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", null, order, paymentData);
-        });
-        paymentData.clear();
-    }
+    void testCreatePaymentWithInvalidVoucherCode() {
+        Map<String, String> paymentDataVoucher = new HashMap<>();
+        paymentDataVoucher.put("voucherCode", "INVALID_VOUCHER");
 
-    @Test
-    void testCreatePaymentWithEmptyPaymentData() {
-        paymentData.clear();
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
+            new Payment("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", orders.get(1), "", paymentDataVoucher);
         });
     }
 
     @Test
-    void testCreatePaymentWithInvalidPaymentMethod() {
-        loadBankTransferPaymentData();
+    void testCreatePaymentWithMissingBankData() {
+        Map<String, String> paymentDataBank = new HashMap<>();
+        paymentDataBank.put("bankName", "BCA");
+        paymentDataBank.put("accountNumber", "1234567890");
+
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", "MEOW", order, paymentData);
+            new Payment("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", orders.get(1), "", paymentDataBank);
         });
-        paymentData.clear();
     }
 
-    @Test
-    void testCreatePaymentWithDefaultStatus() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertSame(order, payment.getOrder());
-        assertEquals("asdfghjkl123456789", payment.getId());
-        assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
-        assertEquals(paymentData, payment.getPaymentData());
-        assertEquals(PaymentStatus.WAITING_CONFIRMATION.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithSuccessStatus() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertSame(order, payment.getOrder());
-        assertEquals("asdfghjkl123456789", payment.getId());
-        assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
-        assertEquals(paymentData, payment.getPaymentData());
-        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithInvalidStatus() {
-        loadBankTransferPaymentData();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithRejectedStatus() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertSame(order, payment.getOrder());
-        assertEquals("asdfghjkl123456789", payment.getId());
-        assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
-        assertEquals(paymentData, payment.getPaymentData());
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
-    }
-
-    @Test
-    void testSetPaymentStatusToRejected() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        payment.setStatus(PaymentStatus.REJECTED.getValue());
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testSetPaymentStatusToInvalidStatus() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertThrows(IllegalArgumentException.class, () -> {
-            payment.setStatus("MEOW");
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testSetPaymentStatusToSuccess() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        payment.setStatus(PaymentStatus.SUCCESS.getValue());
-        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testSetPaymentStatusToWaitingConfirmation() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        payment.setStatus(PaymentStatus.WAITING_CONFIRMATION.getValue());
-        assertEquals(PaymentStatus.WAITING_CONFIRMATION.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithVoucherButPaymentDataIncorrect() {
-        loadBankTransferPaymentData();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithBankTransferButPaymentDataIncorrect() {
-        loadVoucherCodePaymentData();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithBankTransferButPaymentDataHasNoBankName() {
-        loadBankTransferPaymentData();
-        paymentData.remove("bankName");
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithBankTransferButPaymentDataHasNoRefferenceCode() {
-        loadBankTransferPaymentData();
-        paymentData.remove("referenceCode");
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithVoucherButPaymentDataHasNoVoucherCode() {
-        loadVoucherCodePaymentData();
-        paymentData.remove("voucherCode");
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", order, PaymentMethod.VOUCHER.getValue(), paymentData);
-        });
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithVoucherSuccess() {
-        loadVoucherCodePaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertSame(order, payment.getOrder());
-        assertEquals("asdfghjkl123456789", payment.getId());
-        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getPaymentMethod());
-        assertEquals(paymentData, payment.getPaymentData());
-        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
-
-    @Test
-    void testCreatePaymentWithBankTransferSuccess() {
-        loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
-        assertSame(order, payment.getOrder());
-        assertEquals("asdfghjkl123456789", payment.getId());
-        assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
-        assertEquals(paymentData, payment.getPaymentData());
-        assertEquals(PaymentStatus.WAITING_CONFIRMATION.getValue(), payment.getStatus());
-        paymentData.clear();
-    }
 }

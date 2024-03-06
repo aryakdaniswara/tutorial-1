@@ -22,7 +22,7 @@ public class Payment {
         this.id = id;
     }
 
-    public Payment(Order order, String method, Map<String, String>paymentData){
+    public Payment(Order order, String method, Map<String, String> paymentData){
         this.id = UUID.randomUUID().toString();
         this.method = method;
         this.order = order;
