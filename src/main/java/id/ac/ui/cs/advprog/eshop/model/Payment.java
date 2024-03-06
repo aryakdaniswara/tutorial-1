@@ -1,24 +1,46 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
-import java.util.Map;
-
-import lombok.Builder;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
-import lombok.Setter;
 
-@Builder
+import java.util.Map;
+import java.util.UUID;
+
 @Getter
 public class Payment {
     String id;
     String method;
-    Order order;
     Map<String, String> paymentData;
-    @Setter
+    Order order;
     String status;
 
-    public Payment(String id, String method, Order order, Map<String, String> paymentData) {
+    public Payment(String id,  Order order, String method, Map<String, String> paymentData){
+        this(order, method, paymentData);
+        this.id = id;
     }
 
-    public Payment(String id, String method, Order order, Map<String, String> paymentData, String status) {
+    public Payment(Order order, String method, Map<String, String>paymentData){
+        this.id = UUID.randomUUID().toString();
+        this.method = method;
+        this.order = order;
+        this.status=PaymentStatus.WAITING_PAYMENT.getValue();
+        this.setPaymentData(paymentData);
+    }
+
+    public void setStatus(String status){
+        if(PaymentStatus.contains(status)){
+            this.status=status;
+        }else{
+            throw new IllegalArgumentException();
+        }
+    }
+
+    protected void setPaymentData(Map<String, String>paymentData){
+        if(PaymentMethod.contains(this.method)){
+            throw new IllegalArgumentException();
+        }else{
+            this.paymentData = null;
+        }
     }
 }

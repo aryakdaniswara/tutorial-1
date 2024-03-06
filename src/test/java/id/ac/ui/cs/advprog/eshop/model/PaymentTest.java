@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+
 
 class PaymentTest {
     private Map<String, String> paymentData;
@@ -23,15 +25,15 @@ class PaymentTest {
 
         products = new ArrayList<>();
         Product product1 = new Product();
-        product1.setProductId("e45d7d21-fd29-4533-a569-abbe0819579a");
-        product1.setProductName("Sampo Cap Bambang");
-        product1.setProductQuantity(2);
+        product1.setId("e45d7d21-fd29-4533-a569-abbe0819579a");
+        product1.setName("Sampo Cap Bambang");
+        product1.setQuantity(2);
         products.add(product1);
 
         Product product2 = new Product();
-        product2.setProductId("8a76b99c-a0b3-46d2-a688-4c1831b21119");
-        product2.setProductName("Sabun Cap Usep");
-        product2.setProductQuantity(1);
+        product2.setId("8a76b99c-a0b3-46d2-a688-4c1831b21119");
+        product2.setName("Sabun Cap Usep");
+        product2.setQuantity(1);
         products.add(product2);
 
         order= new Order(
