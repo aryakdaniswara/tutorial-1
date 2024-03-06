@@ -1,7 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PaymentTest {
@@ -76,7 +76,7 @@ class PaymentTest {
     void testCreatePaymentWithEmptyPaymentData() {
         paymentData.clear();
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
     }
 
@@ -92,7 +92,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentWithDefaultStatus() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertSame(order, payment.getOrder());
         assertEquals("asdfghjkl123456789", payment.getId());
         assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
@@ -104,7 +104,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentWithSuccessStatus() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertSame(order, payment.getOrder());
         assertEquals("asdfghjkl123456789", payment.getId());
         assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
@@ -117,7 +117,7 @@ class PaymentTest {
     void testCreatePaymentWithInvalidStatus() {
         loadBankTransferPaymentData();
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData, "MEOW");
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -125,7 +125,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentWithRejectedStatus() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData, PaymentStatus.REJECTED.getValue());
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertSame(order, payment.getOrder());
         assertEquals("asdfghjkl123456789", payment.getId());
         assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
@@ -136,7 +136,7 @@ class PaymentTest {
     @Test
     void testSetPaymentStatusToRejected() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         payment.setStatus(PaymentStatus.REJECTED.getValue());
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
@@ -145,7 +145,7 @@ class PaymentTest {
     @Test
     void testSetPaymentStatusToInvalidStatus() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus("MEOW");
         });
@@ -155,7 +155,7 @@ class PaymentTest {
     @Test
     void testSetPaymentStatusToSuccess() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
@@ -164,7 +164,7 @@ class PaymentTest {
     @Test
     void testSetPaymentStatusToWaitingConfirmation() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         payment.setStatus(PaymentStatus.WAITING_CONFIRMATION.getValue());
         assertEquals(PaymentStatus.WAITING_CONFIRMATION.getValue(), payment.getStatus());
         paymentData.clear();
@@ -174,7 +174,7 @@ class PaymentTest {
     void testCreatePaymentWithVoucherButPaymentDataIncorrect() {
         loadBankTransferPaymentData();
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.VOUCHER.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -183,7 +183,7 @@ class PaymentTest {
     void testCreatePaymentWithBankTransferButPaymentDataIncorrect() {
         loadVoucherCodePaymentData();
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -193,7 +193,7 @@ class PaymentTest {
         loadBankTransferPaymentData();
         paymentData.remove("bankName");
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -203,7 +203,7 @@ class PaymentTest {
         loadBankTransferPaymentData();
         paymentData.remove("referenceCode");
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -213,7 +213,7 @@ class PaymentTest {
         loadVoucherCodePaymentData();
         paymentData.remove("voucherCode");
         assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("asdfghjkl123456789", PaymentMethod.VOUCHER.getValue(), order, paymentData);
+            new Payment("asdfghjkl123456789", order, PaymentMethod.VOUCHER.getValue(), paymentData);
         });
         paymentData.clear();
     }
@@ -221,7 +221,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentWithVoucherSuccess() {
         loadVoucherCodePaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.VOUCHER.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertSame(order, payment.getOrder());
         assertEquals("asdfghjkl123456789", payment.getId());
         assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getPaymentMethod());
@@ -233,7 +233,7 @@ class PaymentTest {
     @Test
     void testCreatePaymentWithBankTransferSuccess() {
         loadBankTransferPaymentData();
-        Payment payment = new Payment("asdfghjkl123456789", PaymentMethod.BANK.getValue(), order, paymentData);
+        Payment payment = new Payment("asdfghjkl123456789", order, PaymentMethod.BANK.getValue(), paymentData);
         assertSame(order, payment.getOrder());
         assertEquals("asdfghjkl123456789", payment.getId());
         assertEquals(PaymentMethod.BANK.getValue(), payment.getPaymentMethod());
